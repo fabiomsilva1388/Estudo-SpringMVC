@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Gerenciador de tarefas - página inicial</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+	<!-- HEADER -->
+	<nav class="navbar navbar-inverse navbar-static-top" th:fragment="header">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" 
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<a class="navbar-brand" href="#">TreinaWeb - Spring Boot</a>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/">Início</a></li>
+					<li><a href="/instituicoes/index">Instituição</a></li>
+					<li><a href="/alunos/index">Alunos</a></li>
+				</ul>
+			</div>
+		</div>		
+	</nav>
+	
+	<!-- ** FOOTER ** -->
+	<div th:fragment="footer" style="text-align: center;">&copy; 2019
+		TreinaWeb		
+	</div>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

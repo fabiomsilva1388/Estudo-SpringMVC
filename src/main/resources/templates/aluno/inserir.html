@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+<title>TreinaWeb Spring Boot - Inserção de Alunos</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+</head>
+<body>
+	<div th:replace="fragmentos/fragmentos.html :: header"></div>
+	<div class="container">
+		<h2>Criação de novo aluno</h2>
+		<form class="form-horizontal" action="/alunos/inserir" method="post" th:object="${aluno}">
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-nome">Nome do aluno:</label>
+					<input type="text" class="form-control" id="txt-nome" th:field="*{nome}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="slt-instituicao">Instituicao:</label>
+					<select class="form-control" th:field="*{instituicao.id}">
+						<option th:each="instituicao: ${instituicoes}" 
+							th:value="${instituicao.id}" th:text="${instituicao.nome}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-endereco">Idade:</label>
+					<input type="number" class="form-control" id="txt-idade" th:field="*{idade}" />
+				</div>
+			</div>
+			<input type="submit" value="Salvar" class="btn btn-default"/>
+		</form>
+
+	</div>
+	<div th:replace="fragmentos/fragmentos.html :: footer"></div>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

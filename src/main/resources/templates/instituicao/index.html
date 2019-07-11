@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+<title>TreinaWeb Spring Boot - Lista de Instituições</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+</head>
+<body>
+	<div th:replace="fragmentos/fragmentos.html :: header"></div>
+	<div class="container">
+		<h2>Lista de Instituições cadastradas</h2>
+		<a href="/instituicoes/inserir" class="btn btn-default">Criar nova instituição</a>
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label for="txt-pesquisa-instituicao">Instituição a ser pesquisada</label>
+				<input type="text" id="txt-pesquisa-instituicao" class="form-control" />
+				<button type="button" class="btn btn-default" id="btn-pesquisa-instituicao">Pesquisa</button>
+			</div>
+		</div>
+		<table class="table" id="tbl-instituicoes">
+			<thead>
+				<th>Nome da instituição</th>
+				<th>Endereço</th>
+				<th>Ações</th>
+			</thead>
+			<tbody>
+				<tr th:each="instituicao: ${instituicoes}">
+					<td th:text="${instituicao.nome}"></td>
+					<td th:text="${instituicao.endereco}"></td>
+					<td>
+						<a class="btn btn-warning" th:href="@{/instituicoes/editar/{id}(id=${instituicao.id})}">Editar</a> 
+						<a class="btn btn-danger" th:href="@{/instituicoes/excluir/{id}(id=${instituicao.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div th:replace="fragmentos/fragmentos.html :: footer"></div>
+	<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#btn-pesquisa-instituicao').click(function(){
+				$.ajax({
+					method: 'GET',
+					url: '/instituicoes/pesquisarPorNome/' + $('#txt-pesquisa-instituicao').val(),
+					success: function(data){
+						$('#tbl-instituicoes tbody > tr').remove();
+						$.each(data, function(){
+							$('#tbl-instituicoes tbody').append(
+								'<tr>' +
+								'	<td>' + this.nome + '</td>' +
+								'	<td>' + this.endereco + '</td>' +
+								'	<td>' +
+								'		<a class="btn btn-warning" href="/instituicoes/editar/' + this.id + '">Editar</a>' +
+								'		<a class="btn btn-danger" href="/instituicoes/excluir/' + this.id + '">Excluir</a>' +
+								'	</td>' + 
+								'</tr>'
+							);
+						});
+					},
+					error: function(){
+						alert('Não foi possível executar a pesquisa');
+					}
+				});
+			});
+			
+		});
+	</script>
+</body>
+</html>

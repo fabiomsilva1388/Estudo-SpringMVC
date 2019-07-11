@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+<meta charset="UTF-8"></meta>
+<title>TreinaWeb Spring Boot - Lista de Alunos</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+</head>
+<body>
+	<div th:replace="fragmentos/fragmentos.html :: header"></div>
+	<div class="container">
+		<h2>Lista de Alunos cadastradas</h2>
+		<a href="/alunos/inserir" class="btn btn-default">Criar nova aluno</a>
+		<table class="table" id="tbl-alunos">
+			<thead>
+				<th>Nome da aluno</th>
+				<th>idade</th>
+				<th>Instituição</th>
+				<th>Ações</th>
+			</thead>
+			<tbody>
+				<tr th:each="aluno:  ${alunos}">
+					<td th:text="${aluno.nome}"></td>
+					<td th:text="${aluno.idade}"></td>
+					<td th:text="${aluno.instituicao.nome}"></td>
+					<td>
+						<a class="btn btn-warning" th:href="@{/alunos/editar/{id}(id=${aluno.id})}">Editar</a> 
+						<a class="btn btn-danger" th:href="@{/alunos/excluir/{id}(id=${aluno.id})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:replace="fragmentos/fragmentos.html :: footer"></div>
+	<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
